@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Shree Vakthi – Cybersecurity</title>
+<meta name="description" content="Final-year cybersecurity engineering student looking for SOC analyst and junior security roles. Lab projects with explanations, demos, test results and their limits.">
+<link rel="canonical" href="https://shreevakthi18.github.io/">
+<meta property="og:title" content="Shree Vakthi – Cybersecurity">
+<meta property="og:description" content="Security tools I built, attacked in my own lab and documented, with honest test results.">
+<meta property="og:url" content="https://shreevakthi18.github.io/">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%230E1A2B'/%3E%3Ctext x='32' y='43' font-size='30' font-family='Georgia,serif' font-weight='700' text-anchor='middle' fill='%23FF6A3D'%3ESV%3C/text%3E%3C/svg%3E">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Figtree:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top"><a href="#top" class="brand">Shree Vakthi</a>
+<nav aria-label="Main"><a href="#overview">Overview</a><a href="#work">Projects</a><a href="#internship">Internship</a><a href="#labs">Labs</a><a href="#skills">Skills</a><a href="#checks">Site checks</a><a class="cta" href="#contact">Contact</a></nav></header>
+
+<main id="main">
+<section id="top" class="hero">
+  <div>
+    <p class="mono kick">Final-year cybersecurity engineering student · SRM MCET · 2027</p>
+    <h1>I build security tools, attack them myself, and write down what happened.</h1>
+    <p class="lead">I'm Shree, and I'm looking for a SOC analyst or junior cybersecurity job. So far I've built a defense that judges whole user sessions, a file layer that restores tampered files, a Wazuh SOC lab, and security fixes for a company's attendance app. Every result here comes from my own lab tests.</p>
+    <p class="acts"><a class="btn" href="#work">Explore projects</a><a class="btn ghost" href="https://github.com/ShreeVakthi18" target="_blank" rel="noopener">View GitHub</a><a class="btn ghost mail" data-u="shreevakthi9046" data-d="gmail.com" data-s="Hello from your portfolio" href="#contact">Email me</a></p>
+  </div>
+  <div class="heroviz"><canvas id="net" aria-hidden="true"></canvas>
+    <div class="term mono"><p class="dim">$ ls ~/projects</p>
+      <a href="#eaacd">EAACD — Evolution-Aware Adaptive Cyber Defense</a>
+      <a href="#shfsl">SHFSL 2.0 — Self-Healing File System Layer</a>
+      <a href="#wazuh">Wazuh SOC Home Lab</a>
+      <a href="#netaudit">Network Vulnerability Audit</a>
+      <a href="#attendance">Face-Recognition Attendance App Security Hardening</a>
+      <a href="#labs">+ 8 more hands-on labs</a></div>
+    <p class="mono cap2">background network is decorative, not live data</p></div>
+</section>
+
+<section id="overview">
+  <h2>Project overview</h2>
+  <p class="wide">Jump to the full explanation of any project. The type of work and the tools are listed; no scores or statistics are added here.</p>
+  <ul class="ov">
+    <li><a href="#eaacd">EAACD — Evolution-Aware Adaptive Cyber Defense</a><p class="mono">Work: adaptive detection and response, web API</p><p class="tech"><span>REST API</span><span>Behavioral state machine</span><span>Critical-asset mapping</span></p></li>
+    <li><a href="#shfsl">SHFSL 2.0 — Self-Healing File System Layer</a><p class="mono">Work: file tamper detection and recovery</p><p class="tech"><span>Python</span><span>Streamlit</span><span>Multithreaded daemon</span></p></li>
+    <li><a href="#wazuh">Wazuh SOC Home Lab</a><p class="mono">Work: alert triage and investigation</p><p class="tech"><span>Wazuh</span><span>VirtualBox</span><span>Windows 10/11</span></p></li>
+    <li><a href="#netaudit">Network Vulnerability Audit</a><p class="mono">Work: vulnerability assessment and hardening</p><p class="tech"><span>Nmap</span><span>Bash</span><span>UFW</span></p></li>
+    <li><a href="#attendance">Face-Recognition Attendance App Security Hardening</a><p class="mono">Work: application security (internship)</p><p class="tech"><span>Flask</span><span>Node.js</span><span>MongoDB</span></p></li>
+  </ul>
+</section>
+
+<section id="work">
+  <h2>Projects</h2>
+  <p class="wide">Each project is explained right here, in plain English first. Technical details open underneath. The browser demos are simulations, not the real systems.</p>
+  <noscript><p class="note">The interactive demos and embedded videos need JavaScript. All the links below still work without it.</p></noscript>
+
+  <article class="proj" id="eaacd">
+    <div class="pmain">
+      <h3>EAACD — Evolution-Aware Adaptive Cyber Defense</h3>
+      <p class="sub mono">Detecting suspicious user activity · Mar–Apr 2026</p>
+      <dl class="facts">
+        <dt>What it does</dt><dd>A small web API that watches everything one user does in a session and gets stricter as that behavior drifts from normal: slow them down, limit them, then block them.</dd>
+        <dt>Why I built it</dt><dd>Most defenses judge each request on its own. A careful attacker can send requests that each look fine while the session as a whole is not. I wanted to see whether tracking the whole session would catch that.</dd>
+        <dt>How it works</dt><dd>The API keeps a behavior profile for each user and updates a risk picture with every request. The response escalates in steps: throttle, restrict, isolate. Isolate means an automatic HTTP 403, a reply that means "access forbidden".</dd>
+        <dt>Testing summary</dt><dd>52 normal requests passed with zero false positives (a false positive is a normal user wrongly flagged). Malicious sessions I generated were escalated within 4 requests. <span class="own">My own lab tests.</span></dd>
+        <dt>Limitations</dt><dd>These are not production benchmarks. I used traffic I generated myself, with no real users and no attacks I didn't think of.</dd>
+      </dl>
+      <p class="tech"><span>REST API</span><span>Behavioral state machine</span><span>Risk-driven detection engine</span><span>Critical-asset mapping</span></p>
+      <details><summary>Technical details</summary><p>A REST API is a way for programs to talk to each other using HTTP requests. A behavioral state machine profiles each user across requests. The risk-driven detection engine maps critical assets, so activity near them raises risk faster. Enforcement escalates in three steps: throttle, restrict, isolate.</p></details>
+      <details open><summary>Architecture: how a request moves through EAACD</summary><ol class="flow"><li class="n"><b>Client request</b><small>one user's session</small></li><li class="a" aria-hidden="true"><span>sends</span></li><li class="n"><b>REST API</b><small>receives every request</small></li><li class="a" aria-hidden="true"><span>updates</span></li><li class="n"><b>Behavior profile</b><small>kept per user</small></li><li class="a" aria-hidden="true"><span>risk picture</span></li><li class="n"><b>Risk engine</b><small>uses critical-asset mapping</small></li><li class="a" aria-hidden="true"><span>stage chosen</span></li><li class="n"><b>Enforcement</b><small>Normal · Throttle · Restrict · Isolate</small></li></ol><p class="mono fnote">The reply returns to the client: allowed, slowed, limited, or HTTP 403. The profile and risk picture carry over to the next request.</p></details><p class="links"><a class="lk" href="https://github.com/ShreeVakthi18/EvoSec-Evolution-Aware-Adaptive-Cyber-Defense" target="_blank" rel="noopener">View Source Code</a><a class="lk" href="https://evosec-evolution-aware-adaptive-cyber.onrender.com/" target="_blank" rel="noopener">Open Live Demo (hosted site)</a><a class="lk" href="https://www.youtube.com/watch?v=ADvxDcGglfs" target="_blank" rel="noopener">Watch Demo Video</a><a class="lk try" href="#demo-eaacd">Try the browser simulation</a></p>
+    </div>
+    <div class="dock"><div class="opts"><h4 class="dh">Three different ways to see EAACD</h4>
+<div class="oc"><b>1 · Browser simulation</b><span>Illustrative and runs only in this page. It is separate from the hosted system and uses made-up numbers.</span><a class="btn sm" href="#demo-eaacd">Try the simulation</a></div>
+<div class="oc"><b>2 · The actual hosted EAACD website</b><span>The real deployed project on Render. Its availability is not guaranteed here: free hosting can be slow to wake or offline.</span><a class="btn sm ghost" href="https://evosec-evolution-aware-adaptive-cyber.onrender.com/" target="_blank" rel="noopener">Open hosted site ↗</a></div>
+<div class="oc"><b>3 · Recorded demonstration</b><span>A video of the system, embedded here on request.</span><div class="vid"><button type="button" class="vbtn" data-vid="ADvxDcGglfs" data-t="EAACD demo video">▶ Play the demo video here</button><div class="vslot"></div><p class="mono vnote">Loads from YouTube only after you click. Never autoplays.</p></div></div></div><h4 class="dh">Interactive demo · EAACD browser simulation</h4><div data-mount="eaacd" data-v="h" id="demo-eaacd"></div></div>
+  </article>
+
+  <article class="proj" id="shfsl">
+    <div class="pmain">
+      <h3>SHFSL 2.0 — Self-Healing File System Layer</h3>
+      <p class="sub mono">Detecting and recovering changed files · Sep–Oct 2025</p>
+      <dl class="facts">
+        <dt>What it does</dt><dd>A file-protection layer that spots suspicious file changes and restores the original from a saved copy.</dd>
+        <dt>Why I built it</dt><dd>Catching tampering is only half the job, because an alert doesn't undo the change. I wanted the file to come back too.</dd>
+        <dt>How it works</dt><dd>A monitor running in the background watches file activity and scores how risky it looks. A snapshot (a clean saved copy of the file) is kept. When the risk score climbs, for example when someone touches a decoy file, the snapshot is copied back.</dd>
+        <dt>Testing summary</dt><dd>It detected all 6 attack scenarios I simulated, with risk scores up to 100/100. <span class="own">My own lab tests.</span></dd>
+        <dt>Limitations</dt><dd>I wrote those six scenarios myself, so they don't cover attacks I didn't think of.</dd>
+      </dl>
+      <p class="tech"><span>Python</span><span>Streamlit dashboard</span><span>Multithreaded daemon</span><span>Rule-based detection</span><span>Adaptive risk scoring</span><span>Email alerts</span></p>
+      <details><summary>Technical details</summary><p>A daemon (a program that runs in the background) intercepts file I/O in real time and applies rule-based detection with an adaptive risk score. A decoy file is a bait file nobody should open, so touching it counts as a strong sign of a breach. Guards stop a rollback from repeating and handle locked files. The Streamlit dashboard shows live risk scores, and email alerts are sent without blocking the monitor.</p></details>
+      <details open><summary>Architecture: how a file change moves through SHFSL 2.0</summary><ol class="flow"><li class="n"><b>File activity</b><small>read, write, decoy touched</small></li><li class="a" aria-hidden="true"><span>watched</span></li><li class="n"><b>Monitor daemon</b><small>background, rule-based</small></li><li class="a" aria-hidden="true"><span>scored</span></li><li class="n"><b>Risk score</b><small>adaptive, up to 100</small></li><li class="a" aria-hidden="true"><span>score climbs</span></li><li class="n"><b>Restore</b><small>copy back from snapshot</small></li></ol><p class="mono fnote">A clean snapshot is saved beforehand. The Streamlit dashboard shows live risk scores, and email alerts are sent without blocking the monitor.</p></details><p class="links"><a class="lk" href="https://github.com/ShreeVakthi18/Self-healing-file-system-layer" target="_blank" rel="noopener">View Source Code</a><a class="lk" href="https://www.youtube.com/watch?v=u56oDC10oNM" target="_blank" rel="noopener">Watch Demo Video</a><a class="lk try" href="#demo-shfsl">Try the browser simulation</a></p>
+    </div>
+    <div class="dock"><div class="vid"><button type="button" class="vbtn" data-vid="u56oDC10oNM" data-t="SHFSL 2.0 demo video">▶ Play the demo video here</button><div class="vslot"></div><p class="mono vnote">Loads from YouTube only after you click. Never autoplays.</p></div><h4 class="dh">Interactive demo · SHFSL 2.0 file recovery timeline</h4><div data-mount="shfsl" data-v="t" id="demo-shfsl"></div></div>
+  </article>
+
+  <article class="proj" id="wazuh">
+    <div class="pmain">
+      <h3>Wazuh SOC Home Lab</h3>
+      <p class="sub mono">Investigating security alerts</p>
+      <dl class="facts">
+        <dt>What it does</dt><dd>A home SOC lab where I simulated failed logins on a Windows machine, had Wazuh detect them, and investigated the alerts.</dd>
+        <dt>Why I built it</dt><dd>I wanted to practice reading alerts the way a SOC analyst does, in a setup where I knew exactly what had happened.</dd>
+        <dt>How it works</dt><dd>Windows writes failed logins to its security log. Wazuh is a SIEM, a tool that collects security logs and helps analysts investigate alerts. It collects those logs, and a rule turns repeated failures into one alert.</dd>
+        <dt>Testing summary</dt><dd>I simulated a brute-force login (many password guesses in a row) against a Windows 10/11 machine. Wazuh alerted on the multiple failed logins, and I investigated later alerts, including a new local account and a privilege escalation. <span class="own">My own lab.</span></dd>
+        <dt>Limitations</dt><dd>One lab, one machine, attacks I ran myself. It shows I can follow alerts, not that I've handled a real incident.</dd>
+      </dl>
+      <p class="tech"><span>Wazuh</span><span>VirtualBox</span><span>Wazuh OVA image</span><span>Windows 10/11</span><span>Windows security audit logging</span></p>
+      <details><summary>Technical details</summary><p>I deployed Wazuh from the official OVA (a ready-made virtual machine image) on VirtualBox. The Windows endpoint's audit logging fed Wazuh, a rule fired on multiple failed logins, and later alerts covered a new local account and privilege escalation. The repo has screenshots.</p></details>
+      <p class="links"><a class="lk" href="https://github.com/ShreeVakthi18/wazuh-soc-home-lab" target="_blank" rel="noopener">View Source Code</a><a class="lk try" href="#demo-wazuh">Try the browser simulation</a></p>
+    </div>
+    <div class="dock"><h4 class="dh">Interactive demo · Wazuh incident investigation timeline</h4><div data-mount="wazuh" data-v="w" id="demo-wazuh"></div></div>
+  </article>
+
+  <article class="proj" id="netaudit">
+    <div class="pmain">
+      <h3>Network Vulnerability Audit</h3>
+      <p class="sub mono">Finding network weaknesses</p>
+      <dl class="facts">
+        <dt>What it does</dt><dd>An audit of a Linux machine in my lab: which services were exposed, how risky each one was, and a script to close the worst ones.</dd>
+        <dt>Why I built it</dt><dd>Every open service is a possible way in. I wanted practice finding them, rating them and fixing them.</dd>
+        <dt>How it works</dt><dd>Nmap, a tool that finds open ports and the software behind them, probed the machine. I rated each finding, kept terminal screenshots and the raw audit log as evidence, then wrote a Bash script to harden the machine.</dd>
+        <dt>Testing summary</dt><dd>Nmap port, service-version (-sV) and OS (-O) scans of the lab target. The findings are in the table below. <span class="own">My own lab.</span></dd>
+        <dt>Limitations</dt><dd>One lab machine, with ratings that are my own judgment. It isn't a penetration test for a client.</dd>
+      </dl>
+      <div class="tw"><table><caption class="mono">Findings and the action taken</caption><thead><tr><th>Finding</th><th>My rating</th><th>Hardening action</th></tr></thead><tbody>
+        <tr><td>Telnet, port 23 (sends data as plain text)</td><td><b class="rt c">Critical</b></td><td>Blocked with UFW</td></tr>
+        <tr><td>Apache 2.4.7 (outdated version)</td><td><b class="rt h">High</b></td><td>Documented; the script also automates updates</td></tr>
+        <tr><td>SMB, port 445 (file sharing, shown as filtered)</td><td><b class="rt m">Medium</b></td><td>Blocked with UFW</td></tr>
+        <tr><td>SSH root login</td><td>Hardening step</td><td>Disabled by the script</td></tr></tbody></table></div>
+      <p class="tech"><span>Nmap</span><span>Linux</span><span>Bash</span><span>UFW firewall</span></p>
+      <details><summary>Technical details</summary><p>UFW is Ubuntu's simple firewall tool. "Filtered" means something blocked or hid Nmap's probes, so it couldn't tell whether the port was open. The audit repo holds the risk table and evidence. The hardening script lives in its own repo.</p></details>
+      <p class="links"><a class="lk" href="https://github.com/ShreeVakthi18/network-vulnerability-audit" target="_blank" rel="noopener">View Source Code</a><a class="lk" href="https://github.com/ShreeVakthi18/linux-infrastructure-hardening" target="_blank" rel="noopener">View Hardening Script</a><a class="lk try" href="#demo-net">Try the browser simulation</a></p>
+    </div>
+    <div class="dock"><h4 class="dh">Interactive demo · Network Vulnerability Audit map</h4><div data-mount="net" data-v="n" id="demo-net"></div></div>
+  </article>
+</section>
+
+<section id="internship">
+  <h2>Internship</h2>
+  <p class="wide">ProJenius Innovation Technology Private Limited · Jun–Jul 2026</p>
+  <article class="proj" id="attendance">
+    <div class="pmain">
+      <h3>Face-Recognition Attendance App Security Hardening</h3>
+      <p class="sub mono">Securing an attendance app · ProJenius internship</p>
+      <dl class="facts">
+        <dt>What it does</dt><dd>This is security work on a face-recognition attendance app that the company uses across the organization. I fixed 10 security issues in it and added 7+ security controls.</dd>
+        <dt>Why I built it</dt><dd>Many people rely on the app, so weak logins or loose handling of input would affect all of them.</dd>
+        <dt>How it works</dt><dd>The 10 issues covered authentication (logins), session management, input validation, the database and the API. The controls check each request before the app acts on it. The list is below.</dd>
+        <dt>Testing summary</dt><dd>I don't have numeric test results for this one. The changes are in the GitHub repo.</dd>
+        <dt>Limitations</dt><dd>Fixing 10 issues doesn't make the app completely secure. This was my work on one app during one internship, and I describe only my own changes here.</dd>
+      </dl>
+      <ul class="ctl">
+        <li><b>Rate limiting</b> 5 attempts per 15 minutes. It restricts how many requests can be made in a set time, so password guessing becomes slow.</li>
+        <li><b>Request-size limit</b> 2 MB per request, so huge inputs are refused.</li>
+        <li><b>Security headers</b> 15 of them. These are instructions sent with each response that tell the browser to behave safely.</li>
+        <li><b>Logging</b> Structured logs, so problems can be traced afterwards.</li>
+        <li><b>Error handling</b> One shared place handles errors, so they are dealt with the same way everywhere.</li></ul>
+      <p class="tech"><span>Flask</span><span>Node.js</span><span>Express.js</span><span>MongoDB</span></p>
+      <p class="links"><a class="lk" href="https://github.com/ShreeVakthi18/face-recognition-attendance-security-hardening" target="_blank" rel="noopener">View Source Code</a><a class="lk try" href="#demo-intern">Open the control dashboard</a></p>
+    </div>
+    <div class="dock"><h4 class="dh">Interactive demo · Security-control dashboard</h4><div data-mount="intern" data-v="c" id="demo-intern"></div></div>
+  </article>
+</section>
+
+<section id="labs">
+  <h2>More hands-on labs</h2>
+  <p class="wide">Each lab has its own GitHub repo. Here is what I set up, what I tested, and what you can check there.</p>
+  <div class="labs">
+    <article id="lab-firewall"><h3>Firewall, IDS and IPS Lab</h3><dl><dt>Set up</dt><dd>One rule each in Windows Defender Firewall, Snort and Fail2ban.</dd><dt>Tested</dt><dd>Compared tools that only alert with tools that block.</dd><dt>Evidence</dt><dd>Screenshots and write-up in the repo.</dd></dl><a class="lk" href="https://github.com/ShreeVakthi18/Firewall-IDS-IPS-Lab" target="_blank" rel="noopener">View Source Code</a></article>
+    <article id="lab-monitoring"><h3>Linux System Monitoring</h3><dl><dt>Set up</dt><dd>Log watching and permission checks on a Linux machine.</dd><dt>Tested</dt><dd>Spotted failed logins in auth.log, watched live syslog, checked file permissions.</dd><dt>Evidence</dt><dd>Screenshots and write-up in the repo.</dd></dl><a class="lk" href="https://github.com/ShreeVakthi18/linux-system-monitoring" target="_blank" rel="noopener">View Source Code</a></article>
+    <article id="lab-recon"><h3>Network Reconnaissance &amp; Attack Surface Assessment</h3><dl><dt>Set up</dt><dd>Nmap scans of my own machine.</dd><dt>Tested</dt><dd>Port, version and OS scans. Every common port was closed.</dd><dt>Evidence</dt><dd>Scan output and write-up in the repo.</dd></dl><a class="lk" href="https://github.com/ShreeVakthi18/Network-Reconnaissance-Attack-Surface-Assessment" target="_blank" rel="noopener">View Source Code</a></article>
+    <article id="lab-traffic"><h3>Network Traffic Analysis</h3><dl><dt>Set up</dt><dd>A traffic analysis exercise.</dd><dt>Tested</dt><dd>The method and findings are in the repo write-up.</dd><dt>Evidence</dt><dd>Write-up and evidence in the repo.</dd></dl><a class="lk" href="https://github.com/ShreeVakthi18/network-traffic-analysis" target="_blank" rel="noopener">View Source Code</a></article>
+    <article id="lab-hardening"><h3>Linux Infrastructure Hardening</h3><dl><dt>Set up</dt><dd>A Bash script that blocks Telnet and SMB with UFW, automates updates and turns off SSH root login.</dd><dt>Tested</dt><dd>Written to close the findings from the Network Vulnerability Audit.</dd><dt>Evidence</dt><dd>The script itself in the repo.</dd></dl><a class="lk" href="https://github.com/ShreeVakthi18/linux-infrastructure-hardening" target="_blank" rel="noopener">View Source Code</a></article>
+    <article id="lab-aws"><h3>AWS Attack Surface Diff Engine</h3><dl><dt>Set up</dt><dd>A Python tool with Boto3 and Moto. It compares a known-good baseline with the live state.</dd><dt>Tested</dt><dd>It finds public S3 buckets, open SSH ports and unauthorized IAM keys, and outputs JSON that a SIEM can read.</dd><dt>Evidence</dt><dd>Code in the repo. Moto fakes AWS, so this ran against a simulation.</dd></dl><a class="lk" href="https://github.com/ShreeVakthi18/AWS-Attack-Surface-Diff-Engine" target="_blank" rel="noopener">View Source Code</a></article>
+    <article id="lab-sentinel"><h3>Project Sentinel Forensics</h3><dl><dt>Set up</dt><dd>A PowerShell snapshot of a machine's state for triage.</dd><dt>Tested</dt><dd>Matching process IDs showed that a listener on port 7070 was a legitimate service.</dd><dt>Evidence</dt><dd>Script and results in the repo.</dd></dl><a class="lk" href="https://github.com/ShreeVakthi18/Project-Sentinel-Forensics" target="_blank" rel="noopener">View Source Code</a></article>
+    <article id="lab-password"><h3>Offline Password Risk Assessment</h3><dl><dt>Set up</dt><dd>John the Ripper against md5crypt hashes I generated myself.</dd><dt>Tested</dt><dd>Checked how quickly weak passwords fall to offline cracking.</dd><dt>Evidence</dt><dd>Write-up in the repo.</dd></dl><a class="lk" href="https://github.com/ShreeVakthi18/offline-password-risk-assessment" target="_blank" rel="noopener">View Source Code</a></article>
+  </div>
+</section>
+
+<section id="skills">
+  <h2>Skills, and where I used them</h2>
+  <p class="wide">Click a tool to see what it's for, which project used it, and how far I've taken it. I list what I've actually used, and I note the level.</p>
+  <div id="chips" class="chips" role="group" aria-label="Tools and technologies"></div>
+  <div class="used" id="used" aria-live="polite"><p>Loading details…</p></div>
+</section>
+
+<section id="checks">
+  <h2>Website security checks</h2>
+  <p class="wide">I can check a website or web app for common problems, such as the OWASP Top 10 list of the most common web flaws, using Burp Suite and Nmap. I'm a student and haven't done paid client work, so I'll tell you plainly what I can and can't cover. Testing starts only after you give written permission that states the agreed scope. Then you get a written report with each finding, how serious it is, and how to fix it.</p>
+  <p><a class="btn mail" data-u="shreevakthi9046" data-d="gmail.com" data-s="Website security check" href="#contact">Email me about a check</a></p>
+</section>
+
+<section id="contact">
+  <h2>Contact</h2>
+  <ul class="plain">
+    <li>Email <a class="mail" data-u="shreevakthi9046" data-d="gmail.com" href="#contact">shreevakthi9046 [at] gmail.com</a></li>
+    <li>LinkedIn <a href="https://www.linkedin.com/in/shree-vakthi-s-54b955312/" target="_blank" rel="noopener">shree-vakthi-s-54b955312</a></li>
+    <li>GitHub <a href="https://github.com/ShreeVakthi18" target="_blank" rel="noopener">ShreeVakthi18</a></li>
+    <li>TryHackMe <a href="https://tryhackme.com/p/vakthishree" target="_blank" rel="noopener">vakthishree</a></li>
+  </ul>
+</section>
+</main>
+<footer class="mono">© <span id="year">2026</span> Shree Vakthi · All test results on this site are from my own lab, not real-world use.</footer>
+
+
+<template id="t-eaacd"><h2>EAACD — simulation</h2><p class="sub mono">Evolution-Aware Adaptive Cyber Defense</p>
+<div class="stepper demo"><p class="mono tg">Illustrative browser simulation. It is not connected to the real EAACD system.</p>
+<p>A session starts at <b>Normal</b> and moves one stage up as it looks more suspicious. Press <b>Play simulation</b> to watch all four stages, or click a stage to read it.</p>
+<p class="cnt mono"></p><div class="state mono"></div><ol>
+<li data-s="Stage 1 of 4 · Normal · requests go through" data-c="ok"><button>1. Normal</button><p>Requests look like this user's usual behavior, so they pass untouched.</p></li>
+<li data-s="Stage 2 of 4 · Throttle · requests are slowed down" data-c="warn"><button>2. Throttle</button><p>The session starts to look odd. The first response is gentle: slow it down.</p></li>
+<li data-s="Stage 3 of 4 · Restrict · some actions are blocked" data-c="warn"><button>3. Restrict</button><p>The behavior keeps drifting, so what the session may do gets limited.</p></li>
+<li data-s="Stage 4 of 4 · Isolate · HTTP 403, access forbidden" data-c="bad"><button>4. Isolate</button><p>Threat confirmed. The user is cut off automatically with an HTTP 403.</p></li></ol><div class="bar"><i></i></div><button class="play">Play simulation</button></div>
+<div class="demo reqsim"><p class="mono tg">Now try it yourself. The risk numbers are made up for this demo. Only the results on the page come from my real tests.</p>
+<div class="req"><button class="play rn">Send a normal request</button><button class="play rs">Send a suspicious request</button><button class="play ghost2 rr">Reset</button></div>
+<div class="bar"><i></i></div><div class="state mono">Risk 0/100 · Stage: Normal · waiting for a request</div><ul class="log mono" aria-live="polite"></ul></div>
+<p>The real hosted project is separate. See the three options above this simulation.</p></template>
+
+<template id="t-shfsl"><h2>SHFSL 2.0 — simulation</h2><p class="sub mono">Self-Healing File System Layer</p>
+<div class="stepper demo"><p class="mono tg">Simulated in your browser. You're watching an illustration of one file being changed and recovered, not the running tool.</p>
+<p>The file starts clean, gets tampered with, and is restored. Press <b>Replay</b> to watch it, or click a step.</p>
+<p class="cnt mono"></p><div class="state mono"></div><ol>
+<li data-s="report.docx · original · matches the saved copy" data-c="ok"><button>1. Save a copy</button><p>A clean snapshot of the file is saved while everything is normal.</p></li>
+<li data-s="report.docx · MODIFIED · no longer matches the saved copy" data-c="bad"><button>2. Simulate tampering</button><p>Someone or something changes the file. Its contents no longer match the snapshot.</p></li>
+<li data-s="report.docx · MODIFIED · risk score climbing, alert raised" data-c="warn"><button>3. Detect the change</button><p>Detection rules fire and the risk score climbs. Touching a decoy file counts as a strong sign of a breach.</p></li>
+<li data-s="report.docx · RESTORED from the snapshot" data-c="ok"><button>4. Restore the file</button><p>The file is copied back from the snapshot. Guards stop the same rollback from repeating and handle locked files.</p></li></ol><div class="bar"><i></i></div><button class="play">Replay</button></div></template>
+
+<template id="t-wazuh"><h2>Wazuh SOC Home Lab — walkthrough</h2><p class="sub mono">From failed login to investigation</p>
+<div class="stepper demo"><p class="mono tg">Walkthrough of the stages. The events are simulated, and this is not live data.</p>
+<p>This follows one attack from the first bad password to the analyst's investigation. Press <b>Play walkthrough</b> or click a step.</p>
+<p class="cnt mono"></p><div class="state mono"></div><ol>
+<li data-s="Windows machine · many wrong passwords in a row" data-c="bad"><button>1. Failed logins</button><p>I simulated a brute-force attack, which means guessing passwords over and over, against the Windows machine.</p></li>
+<li data-s="Windows security log · one failed-logon entry per attempt" data-c="warn"><button>2. Security log</button><p>Windows audit logging wrote down every failed attempt, like a visitor book at a door.</p></li>
+<li data-s="Wazuh · rule fired · multiple failed logins" data-c="warn"><button>3. Wazuh alert</button><p>Wazuh read those log entries and raised one alert, so an analyst doesn't have to read thousands of lines.</p></li>
+<li data-s="Analyst view · checking what happened next" data-c="ok"><button>4. Investigation</button><p>I worked through the alerts, including a later local account creation and a privilege escalation (an account gaining more power than it should have).</p></li></ol><div class="bar"><i></i></div><button class="play">Play walkthrough</button></div></template>
+
+<template id="t-intern"><h2>Security control explorer</h2><p class="sub mono">Face-Recognition Attendance App Security Hardening</p>
+<div class="stepper demo"><p class="mono tg">This is an explainer, not a simulation of the app. Click a control to see what it is and why it matters.</p>
+<p class="cnt mono"></p><div class="state mono"></div><ol>
+<li data-s="Rate limiting · 5 attempts per 15 minutes" data-c="ok"><button>Rate limiting</button><p><b>What it is:</b> a cap on how many requests can be made in a set time.<br><b>Why it matters:</b> password guessing becomes slow, and one client can't flood the app.</p></li>
+<li data-s="Request-size limit · 2 MB per request" data-c="ok"><button>Request-size limit</button><p><b>What it is:</b> requests above 2 MB are refused.<br><b>Why it matters:</b> the app doesn't have to process huge inputs.</p></li>
+<li data-s="Security headers · 15 headers" data-c="ok"><button>Security headers</button><p><b>What they are:</b> instructions sent with each response that tell the browser to behave safely.<br><b>Why they matter:</b> they switch on browser protections the app would otherwise miss.</p></li>
+<li data-s="Logging · structured" data-c="ok"><button>Logging</button><p><b>What it is:</b> events recorded in a consistent format.<br><b>Why it matters:</b> when something goes wrong, there is a trail to follow.</p></li>
+<li data-s="Error handling · centralized" data-c="ok"><button>Error handling</button><p><b>What it is:</b> one shared place that handles errors.<br><b>Why it matters:</b> errors are dealt with the same way everywhere, so nothing is missed.</p></li></ol><button class="play ghost2 rst">Reset</button></div></template>
+
+<template id="t-net"><h2>Network Vulnerability Audit — findings explorer</h2><p class="sub mono">Example findings, their risks and the hardening actions</p>
+<div class="demo"><p class="mono tg">An illustration of my audit findings. It is not a live scan.</p>
+<p>Each box is something the audit found. Select one to see what I found, why it matters and what I did about it.</p>
+<svg class="nm" viewBox="0 0 420 230" role="group" aria-label="Network map">
+<g stroke="#2B3C55" stroke-width="2"><path d="M70 115H170M210 115L290 40M210 115H290M210 115L290 190"/></g>
+<g data-k="scan" tabindex="0" role="button"><circle cx="45" cy="115" r="26"/><text x="45" y="119">nmap</text></g>
+<g data-k="host" tabindex="0" role="button"><rect x="170" y="95" width="40" height="40"/><text x="190" y="119">host</text></g>
+<g data-k="telnet" class="c" tabindex="0" role="button"><rect x="290" y="25" width="120" height="30"/><text x="350" y="44">Telnet 23</text></g>
+<g data-k="apache" class="h" tabindex="0" role="button"><rect x="290" y="100" width="120" height="30"/><text x="350" y="119">Apache 2.4.7</text></g>
+<g data-k="smb" class="m" tabindex="0" role="button"><rect x="290" y="175" width="120" height="30"/><text x="350" y="194">SMB 445</text></g></svg>
+<div class="nmp" aria-live="polite">Select a box to start.</div><p><button class="play ghost2 nmr">Reset</button></p></div></template>
+<script src="script.js"></script>
+</body>
+</html>
