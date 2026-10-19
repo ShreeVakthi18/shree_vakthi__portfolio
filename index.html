@@ -230,7 +230,8 @@
 <li data-s="Analyst view · checking what happened next" data-c="ok"><button>4. Investigation</button><p>I worked through the alerts, including a later local account creation and a privilege escalation (an account gaining more power than it should have).</p></li></ol><div class="bar"><i></i></div><button class="play">Play walkthrough</button></div></template>
 
 <template id="t-intern"><h2>Security control explorer</h2><p class="sub mono">Face-Recognition Attendance App Security Hardening</p>
-<div class="stepper demo">
+<div class="stepper demo"><p class="mono tg">This is an explainer, not a simulation of the app. Click a control to see what it is and why it matters.</p>
+<p class="cnt mono"></p><div class="state mono"></div><ol>
 <li data-s="Rate limiting · 5 attempts per 15 minutes" data-c="ok"><button>Rate limiting</button><p><b>What it is:</b> a cap on how many requests can be made in a set time.<br><b>Why it matters:</b> password guessing becomes slow, and one client can't flood the app.</p></li>
 <li data-s="Request-size limit · 2 MB per request" data-c="ok"><button>Request-size limit</button><p><b>What it is:</b> requests above 2 MB are refused.<br><b>Why it matters:</b> the app doesn't have to process huge inputs.</p></li>
 <li data-s="Security headers · 15 headers" data-c="ok"><button>Security headers</button><p><b>What they are:</b> instructions sent with each response that tell the browser to behave safely.<br><b>Why they matter:</b> they switch on browser protections the app would otherwise miss.</p></li>
